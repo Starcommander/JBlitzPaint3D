@@ -59,6 +59,7 @@ public class ShapeTool implements ITool
   public void init(Pane pane)
   {
     this.pane = pane;
+    view.getMeshViewGroup().getParent().setOnMouseClicked((ev) -> this.onDeselected());
   }
 
   @Override
@@ -71,6 +72,11 @@ public class ShapeTool implements ITool
       if (line==null) { break EventHandle; }
       double posX = event.getX();
       double posY = event.getY();
+      if (lastChainObj == null)
+      { // First ObjectOfChain, do not drag line
+        line.setStartX(posX);
+        line.setStartY(posY);
+      }
       update(line, circle, line.getStartX(),line.getStartY(),posX,posY);
     }
     else if (evType == EventType.CLICK)

@@ -15,11 +15,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -27,22 +25,18 @@ public class BlitzPaintFrame
 {
   enum MenuType {Load, Save, Settings};
   enum ToolBarType {Canvas, Paint};
+  public static int SIZE_X = 800;
+  public static int SIZE_Y = 600;
   public static String SHAPE_TOOL = "ShapeTool";
   public static String ID_FILE_TOOL = "fileTool";
   public static Color color = Color.RED;
   @FXML private Pane pane;
   @FXML private ScrollPane scrollPane;
-  @FXML private Button settingsButton;
   @FXML private Button shapeTool;
-//  @FXML private Button cropTool;
-  @FXML private GridPane toolbar_paint;
-  @FXML private GridPane toolbar_canvas;
-//  @FXML private MeshView meshView;
   @FXML private Group meshViewGroup;
-  private ContextMenu contextMenu;
   private Node lastSelectedToolButton;
   ArrayList<CheckMenuItem> toolBarList;
-  HashMap<String,ITool> tools = new HashMap<String,ITool>();
+  HashMap<String,ITool> tools = new HashMap<>();
   boolean isDrag = false;
   ITool currentTool;
 
@@ -62,25 +56,17 @@ public class BlitzPaintFrame
 //    meshView.setRotate(10.0);
 //    meshView.setTranslateZ(60.0);
     
-    View3D view = new View3D(meshViewGroup, 400, 600, 300, pane);
+    View3D view = new View3D(meshViewGroup, SIZE_X, 600, SIZE_Y, pane);
     
     ShapeTool.view = view;
   }
 
   public void onShowPre()
   {
-    if (BlitzPaint.fullShot==null)
-    {
-      Frame.openEmptyPix(pane, 400, 200);
-      selectTool(SHAPE_TOOL);
-      lastSelectedToolButton = shapeTool;
-      changeButtonActive(shapeTool, true);
-    }
-//    else
-//    {
-//      Image pix = SizeTool.getScaledInstance(BlitzPaint.fullShot, 400, 0, true);
-//      openPix(pane, pix);
-//    }
+    Frame.openEmptyPix(pane, SIZE_X, SIZE_Y);
+    selectTool(SHAPE_TOOL);
+    lastSelectedToolButton = shapeTool;
+    changeButtonActive(shapeTool, true);
     Frame.clipChildren(pane);
   }
   
@@ -156,7 +142,7 @@ public class BlitzPaintFrame
     String toolClass = EditTool3D.class.getPackage().getName() + "." + id;
     try
     {
-      currentTool = (ITool) Class.forName(toolClass).newInstance();
+      currentTool = (ITool) Class.forName(toolClass).getDeclaredConstructor().newInstance();
     }
     catch (Exception e) { throw new IllegalArgumentException(e); }
     currentTool.init(pane);

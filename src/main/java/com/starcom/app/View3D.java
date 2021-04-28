@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import com.starcom.debug.LoggingSystem;
 import com.starcom.math.Point2i;
-import com.starcom.app.PolyChain;
 import com.starcom.app.mesh3d.Group3D;
 import com.starcom.app.mesh3d.PolygonToTriangle;
 import com.starcom.app.mesh3d.PolygonToTriangle.Triangle;
@@ -26,14 +25,14 @@ import com.starcom.paint.tools.ITool.EventType;
 
 public class View3D
 {
-  private Group rootNode = new Group();
-  private Group3D meshNodeYrotate = new Group3D();
-  private Group3D meshNode = new Group3D();
-  Rectangle rect = new Rectangle();
-  private Group3D rectNode = new Group3D();
+  private final Group rootNode = new Group();
+  private final Group3D meshNodeYrotate = new Group3D();
+  private final Group3D meshNode = new Group3D();
+  final Rectangle rect = new Rectangle();
+  private final Group3D rectNode = new Group3D();
   private boolean moveRect = false;
-  private Group meshViewGroup;
-  private Pane panel;
+  private final Group meshViewGroup;
+  private final Pane panel;
   Point2i dragPos;
 
   public View3D(Group meshViewGroup, double width, double height, double z_depth, Pane panel)
@@ -64,7 +63,8 @@ public class View3D
   
   public double getRectPositionY() { return rectNode.getTranslateY(); }
   public boolean isValidLayer() { return !moveRect; }
-
+  public Group getMeshViewGroup() { return meshViewGroup; }
+  
   private void createScene(Group meshViewGroup, double width, double height, double z_depth)
   {
     javafx.scene.SubScene subs = new javafx.scene.SubScene(rootNode,width,height,true,SceneAntialiasing.BALANCED);
@@ -151,7 +151,6 @@ public class View3D
     if (toRemove!=null)
     { 
       meshNode.getChildren().remove(toRemove);
-System.out.println("NEO_DEBUG: Really removed!");
     }
   }
   
