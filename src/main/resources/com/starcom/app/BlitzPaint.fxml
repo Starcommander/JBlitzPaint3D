@@ -49,7 +49,7 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="com/starcom/app/icons/hand-cursor.png" />
+                              <Image url="com/starcom/app/icons/hand_cursor.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -69,12 +69,12 @@
                <center>
                   <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Pane fx:id="pane" layoutY="68.0" prefHeight="800.0" prefWidth="1200.0" />
+                              <Pane fx:id="pane" prefHeight="800.0" prefWidth="1200.0" />
                            </children>
                       </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
                               <Group fx:id="meshViewGroup" />
                            </children>

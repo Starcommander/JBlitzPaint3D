@@ -75,7 +75,7 @@ public abstract class PaintObject extends AbstractPaintObject
   /** Stores the layer to layerList when objects are present, and clears panel. **/
   public static void storeCurrentLayer(Pane panel)
   {
-    ArrayList<PaintObject> clearList = new ArrayList<PaintObject>();
+    var clearList = new ArrayList<PaintObject>();
     for (AbstractPaintObject aobj : Layer.getCurrentLayer().getPaintObjects())
     {
       PaintObject obj = (PaintObject)aobj;

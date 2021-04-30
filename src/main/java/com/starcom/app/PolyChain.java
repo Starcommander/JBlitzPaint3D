@@ -9,7 +9,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.TriangleMesh;
 import com.starcom.math.Point2i;
 import com.starcom.app.PaintObject.PaintObjType;
-import com.starcom.app.PaintObjectOfChain;
 import com.starcom.app.mesh3d.MeshCreator;
 import com.starcom.app.mesh3d.PolygonToTriangle;
 import com.starcom.app.tools.ShapeTool;
@@ -46,7 +45,25 @@ public class PolyChain
     }
     return isClock;
   }
+  
+  public Point2i calculateCenter()
+  {
+    double posX = 0;
+    double posY = 0;
+    int count = 0;
+    
+    for (PaintObjectOfChain curObj : objs)
+    {
+      Line line = (Line)curObj.getNodeList().get(0);
+      posX += line.getStartX();
+      posY += line.getStartY();
+      count++;
+    }
+    Point2i p = new Point2i((int)(posX/count),(int)(posY/count));
+    return p;
+  }
 
+  /** There is an upper and lower extruded polygon. **/
   public void setExtrudedPoly(PolyChain extPoly, boolean upper)
   {
     if (upper)
@@ -61,6 +78,7 @@ public class PolyChain
     }
   }
   
+  /** There is an upper and lower extruded polygon. **/
   public PolyChain getExtrudedPoly(boolean upper)
   {
     if (upper)
